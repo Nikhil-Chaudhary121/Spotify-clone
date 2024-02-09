@@ -1,5 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("Welcome to spotify");
+
+document.addEventListener('DOMContentLoaded', async() => {
+    console.log("Enjoy Your Listing to spotify");
+    
 
     const playPauseBtn = document.getElementById("play-pause-btn");
     const progBar = document.querySelector("#prog-bar");
@@ -13,9 +15,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let muteBtn = document.querySelector(".mute");
     const volBar = document.querySelector(".volume-bar");
     const sliderEl = document.querySelector(".prog-bar");
+    const songList = document.querySelector(".song-list");
+    const likeBtn = document.querySelector(".like-icon");
+
+    let url = "http://localhost:8080/songs/list";
+
+    let songfile = await getSongList(url);
+    console.log(songfile[0].liked);
+
+    
+
+    async function getSongList(url) {
+        try {
+            let res = await fetch(url);
+            res = await res.json();
+            // console.dir(res);
+            return res;
+        } catch (error) {
+            return ("No Fact Found ");
+        }
+    }
     
 
 
+    let lastSongIdx = 99;
 
 
     let audioElement = new Audio("/songs/1.mp3");
@@ -25,75 +48,115 @@ document.addEventListener('DOMContentLoaded', () => {
     let songType = 0;
 
 
+
     let playPause = false;
+
     
 
-    let songfile = [
-        {
-            songName : "Jaga Jaga",
-            songPath : "/songs/1.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
-        {
-            songName : "Joota Japani",
-            songPath : "/songs/2.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
-        {
-            songName : "Mood fresh",
-            songPath : "/songs/8.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
-        {
-            songName : "Study songs",
-            songPath : "/songs/4.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
-        {
-            songName : "Coding Onn",
-            songPath : "/songs/5.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
-        {
-            songName : "English top 15",
-            songPath : "/songs/6.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
-        {
-            songName : "New edition",
-            songPath : "/songs/7.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
-        {
-            songName : "Coding Onn",
-            songPath : "/songs/3.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
-        {
-            songName : "English top 15",
-            songPath : "/songs/9.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
-        {
-            songName : "New edition",
-            songPath : "/songs/10.mp3",
-            singer : "Nikhil Chaudhary",
-            image: "/img/album_picture.jpeg"
-        },
+    // let songfile = [
+    //     {
+    //         songName : "Jaga Jaga",
+    //         songPath : "/songs/1.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
+    //     {
+    //         songName : "Joota Japani",
+    //         songPath : "/songs/2.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
+    //     {
+    //         songName : "Mood fresh",
+    //         songPath : "/songs/8.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
+    //     {
+    //         songName : "Study songs",
+    //         songPath : "/songs/4.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
+    //     {
+    //         songName : "Coding Onn",
+    //         songPath : "/songs/5.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
+    //     {
+    //         songName : "English top 15",
+    //         songPath : "/songs/6.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
+    //     {
+    //         songName : "New edition",
+    //         songPath : "/songs/7.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
+    //     {
+    //         songName : "Coding Onn",
+    //         songPath : "/songs/3.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
+    //     {
+    //         songName : "English top 15",
+    //         songPath : "/songs/9.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
+    //     {
+    //         songName : "New edition",
+    //         songPath : "/songs/10.mp3",
+    //         singer : "Nikhil Chaudhary",
+    //         image: "/img/album_picture.jpeg"
+    //     },
         
         
-    ]
-    
+    // ]
+    function onStart(){
+        if(songfile[songsIdx].liked === 1){
+            likeBtn.classList.remove("fa-regular");
+            likeBtn.classList.add("fa-solid");
+            likeBtn.classList.add("liked-icon")
+            console.log( "song index",songsIdx)
+        }else{
+            likeBtn.classList.add("fa-regular");
+            likeBtn.classList.remove("fa-solid");
+            likeBtn.classList.remove("liked-icon")
+        }
+    }
+    onStart();
 
+    try {
+        songList.addEventListener("click", (event)=>{
+
+            if(
+                event.target.id === "song"
+            ){
+                console.dir(event.target)
+                if(lastSongIdx == event.target.tabIndex){
+                    audioElement.play();
+                    playPauseSong();
+                    // songsIdx = event.target.tabIndex - 1;
+                    // nextSong();
+                    // console.log("last song if index :",lastSongIdx);
+                    lastSongIdx = 99;
+                }else{
+                    songsIdx = event.target.tabIndex -1;
+                    nextSong();
+                    console.log("last song else index :",lastSongIdx);
+                    lastSongIdx = event.target.tabIndex;
+                }   
+            }
+            
+        })
+    } catch (error) {
+        
+        }
 
 
     progBar.addEventListener("change",(event) => {
@@ -112,11 +175,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nextBtn.addEventListener("click", ()=>{
         nextSong();
+        onStart();
     })
 
 
     backBtn.addEventListener("click", ()=>{
         backSong();
+        onStart();
     })
 
     function progBarColorChange() {
@@ -192,6 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function playPauseSong(){
+       
         if(audioElement.paused || audioElement.currentTime<=0){
             await audioElement.play();
             console.log(` Song Number : ${songsIdx}`);
@@ -313,6 +379,53 @@ document.addEventListener('DOMContentLoaded', () => {
             shuffleBtn.src = "/img/player_icon1.png"
             loopBtn.src = "/img/player_icon5.png"
         }
+    })
+
+    function updateSongList(newData){
+    }
+
+    likeBtn.addEventListener("click",async()=>{
+        if(songfile[songsIdx].liked === 0){
+            likeBtn.src = "/img/liked_icon.png"
+            const id = songfile[songsIdx]._id;
+            getSongList(`http://localhost:8080/songs/${id}`);
+            dur = audioElement.duration;
+            location.reload();
+            }else{
+                const id = songfile[songsIdx]._id;
+                getSongList(`http://localhost:8080/songs/${id}`);
+                likeBtn.src = "/img/album_icon1.png"
+                dur = audioElement.duration;
+                location.reload();
+            }
+            console.log("reloded")
+            
+            // Create an object with the data to be sent
+            // const data = {
+            // id: id,
+            // };
+            // Use fetch to send the data
+            // fetch('http://localhost:8080/songs/liked', {
+            // method: 'POST',
+            // headers: {
+            //     'Content-Type': 'application/json',
+            //     // Add any other headers if needed
+            // },
+            // body: JSON.stringify(data),
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Success:', data);
+            // })
+            // .catch(error => {
+            //     console.error('Error:', error);
+            // });
+
+
+            // await Song.findByIdAndUpdate(id, {liked : 1})
+            // console.log();
+           
+        
     })
 
 });

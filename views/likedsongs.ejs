@@ -1,0 +1,95 @@
+<%- layout("../layouts/boilerplate.ejs") %>
+
+<body>
+    <div class="main">
+        <div class="siderbar">
+            <div class="nav">
+                <div class="nav-option" style="opacity: 1;">
+                    <i class="fa-solid fa-house"></i>
+                    <a href="#">Home</a>
+                </div>
+                <div class="nav-option">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <a href="#">Search</a>
+                  </div>
+            </div>
+            <div class="library">
+                <div class="options">
+                    <div class="lib-option nav-option">
+                        <img src="/img/library_icon.png" alt="">
+                        <a href="#">Your Library</a>
+                    </div>
+                    <div class="icons">
+                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+                <div class="lib-box">
+                    <div class="lib-main-box">
+                        <div class="crtbox">
+                            <i class="fa-solid fa-plus"></i>
+                            <!-- <p class="box-p1">Create your first playlist</p>
+                            <p class="box-p2">it's easy, we'll help you</p> -->
+                            <a href="#">Create playlist</a>
+                        </div>
+                        <div class="playlistbox">
+                            <img src="/img/likedsong_icon.jpeg" alt="">
+                            <a href="/songs/liked">Liked Songs</a>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <p class="box-p1">Let's find some podcasts to follow</p>
+                        <p class="box-p2">we'll keep you updated on new episodes</p>
+                        <button class="badge">Browse podcasts</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-contant main-cnt">
+            <div class="sticky-nav">
+                <div class="sticky-nav-icons">
+                    <img src="/img/backward_icon.png " alt="">
+                    <img src="/img/forward_icon.png " class="hide">
+                </div>
+                <div class="sticky-nav-options">
+                    <button class="badge nav-item hide">Explore Primium</button>
+                    <button class="badge nav-item dark-badge"><i class="fa-regular fa-circle-down" style="margin-right: 5px;"></i>Install App</button>
+                    <i class="fa-regular fa-user nav-item"> </i>
+                </div>
+            </div>
+    
+            <!-- cards -->
+            <h2>Liked Songs</h2>
+            <div class="box-img">
+                <img src="/img/card1img.jpeg" alt="">
+                <div class="details">
+                    <p class="list-title">Your Favourite Songs</p>
+                    <p class="list-info">Songs that liked by you <br>
+                    Enjoy Your listing with spotify</p>
+                    <p class="totalsongs">Total Songs &nbsp; : &nbsp; 10</p>
+                </div>
+            </div>
+            <div class="song-list">
+                <% songIdx = 0 %>
+                <% for(song of songlist) { %>
+                    <% console.log(songIdx) %>
+                    <a>
+                        <div class="song play-pause-btn" tabindex="<%= songIdx %>" id="song" type="button">
+                            <img id="song" class="btn" tabindex="<%= songIdx %>" type="button" src="<%- song.image %>" alt="">
+                            <div class="song-details" tabindex="<%= songIdx %>" id="song">
+                                <div class="songs-title btn" tabindex="<%= songIdx %>" type="button" id="song"><%- song.songName %></div>
+                                <div class="songs-info btn" tabindex="<%= songIdx %>" type="button" id="song"><%- song.singer %></div>
+                            </div>
+                            <i class="fa-solid fa-heart liked-icon"></i>
+                        </div>
+                        <% songIdx++ %>
+                        <%} %> 
+                    </a> 
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+
+

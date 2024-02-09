@@ -15,6 +15,7 @@
     "express": "^4.18.2",
     "method-override": "^3.0.0",
     "mongoose": "^8.1.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "require": "^2.4.20"
   }
 }

@@ -1,4 +1,5 @@
 <%- layout("../layouts/boilerplate.ejs") %>
+<body>
 <div class="main">
     <div class="siderbar">
         <div class="nav">
@@ -23,10 +24,17 @@
                 </div>
             </div>
             <div class="lib-box">
-                <div class="box">
-                    <p class="box-p1">Create your first playlist</p>
-                    <p class="box-p2">it's easy, we'll help you</p>
-                    <button class="badge">Create playlist</button>
+                <div class="lib-main-box">
+                    <div class="crtbox">
+                        <i class="fa-solid fa-plus"></i>
+                        <!-- <p class="box-p1">Create your first playlist</p>
+                        <p class="box-p2">it's easy, we'll help you</p> -->
+                        <a href="#">Create playlist</a>
+                    </div>
+                    <div class="playlistbox">
+                        <img src="/img/likedsong_icon.jpeg" alt="">
+                        <a href="/songs/liked">Liked songs</a>
+                    </div>
                 </div>
                 <div class="box">
                     <p class="box-p1">Let's find some podcasts to follow</p>
@@ -153,5 +161,5 @@
         </div>
     </div>
 </div> -->
-
+    
 </body>

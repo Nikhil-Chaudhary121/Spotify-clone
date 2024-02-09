@@ -18,6 +18,10 @@ const songListSchema = new Schema({
     image: {
         type : String,
         default : "/img/album_picture.jpeg"
+    },
+    liked : {
+        type : Number,
+        enum : [0, 1]
     }
 })
 

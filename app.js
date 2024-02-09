@@ -25,11 +25,34 @@ async function main(){
 
 
 app.get("/",(req, res)=> {
-    res.render("index.ejs")
+    res.render("index.ejs");
+    
 })
 
 app.get("/songs", (req, res)=>{
     res.render("topList.ejs");
+})
+
+app.get("/songs/liked", async (req, res)=>{
+    let songlist = await Song.find({liked : 1});
+    console.log(songlist);
+    res.render("likedsongs.ejs",{songlist});
+})
+
+app.get("/songs/list", async (req, res)=>{
+    let songFolder = await Song.find();
+    res.send(songFolder);
+})
+
+app.get("/songs/:id",async(req, res)=>{
+    let {id} = req.params;
+    let song = await Song.findById(id);
+    if (song.liked == 0) {
+        let result =await Song.findByIdAndUpdate(id, {liked :1});
+    } else {
+        let result =await Song.findByIdAndUpdate(id, {liked : 0});
+    }
+    res.redirect("/songs/list");
 })
 
 app.listen(port, ()=>{
